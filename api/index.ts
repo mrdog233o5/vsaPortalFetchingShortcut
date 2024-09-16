@@ -1,15 +1,21 @@
-import express from "express";
-
+const express = require("express");
+const bodyParser = require('body-parser');
 const app = express();
-const port = 8080;
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.get("/", (req, res) => {
-	res.send("Hello World!");
-	console.log(res.headersSent);
+	console.log(req.get("test"));
+	var resJson = {
+		classes: [],
+	};
+	res.json(resJson);
 });
 
-app.listen(port, () => {
-	console.log(`Listening on port ${port}...`);
+app.listen(() => {
+	console.log(`Listening...`);
 });
 
 module.exports = app;
