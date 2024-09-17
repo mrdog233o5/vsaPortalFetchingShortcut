@@ -12,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
 	const date = req.get("date");
 
-	fs.readFile("timetable.php", "utf8", (err, data) => {
+	fs.readFile("/timetable.php", "utf8", (err, data) => {
 		if (err) {
 			console.error(err);
 			return;
