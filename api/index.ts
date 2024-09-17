@@ -18,24 +18,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
 	const date = req.get("date");
 
-	fs.readFile("./timetable.php", "utf8", (err, data) => {
-		if (err) {
-			console.error(err);
-			return;
-		}
+	var formattedJSONData = {};
 
-		
-		var formattedJSONData = {};
+	Array.from(rawJSONData).forEach((classEvent:any) => {
+		var skl_date = classEvent["school_date"];
+		if (formattedJSONData[skl_date] == undefined) formattedJSONData[skl_date] = [];
+		if (classEvent["room"] == "") return;
+		formattedJSONData[skl_date].push(`${classEvent["room"]} - ${classEvent["subj_shortname"].split(" ").slice(0,1)}`);
+	})
 
-		Array.from(rawJSONData).forEach((classEvent:any) => {
-			var skl_date = classEvent["school_date"];
-			if (formattedJSONData[skl_date] == undefined) formattedJSONData[skl_date] = [];
-			if (classEvent["room"] == "") return;
-			formattedJSONData[skl_date].push(`${classEvent["room"]} - ${classEvent["subj_shortname"].split(" ").slice(0,1)}`);
-		})
-
-		res.json(formattedJSONData[date]);
-	});
+	res.json(formattedJSONData[date]);
 });
 
 app.listen(() => {
