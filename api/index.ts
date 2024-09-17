@@ -1,9 +1,7 @@
 const express = require("express");
 const fs = require("node:fs");
 const bodyParser = require("body-parser");
-const app = express();
-
-const skips = [
+const app = express();const skips = [
 	"Homeroom",
 	"Flex"
 ];
@@ -14,7 +12,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.get("/", (req, res) => {
 	const date = req.get("date");
 
-	fs.readFile("/timetable.php", "utf8", (err, data) => {
+	fs.readFile("timetable.php", "utf8", (err, data) => {
 		if (err) {
 			console.error(err);
 			return;
