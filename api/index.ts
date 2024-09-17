@@ -24,7 +24,8 @@ app.get("/", (req, res) => {
 		var skl_date = classEvent["school_date"];
 		if (formattedJSONData[skl_date] == undefined) formattedJSONData[skl_date] = [];
 		if (classEvent["room"] == "") return;
-		formattedJSONData[skl_date].push(`${classEvent["room"]} - ${classEvent["subj_shortname"].split(" ").slice(0,1)}`);
+		if (skips.includes(classEvent["subj_shortname"].split(" ")[0])) return;
+		formattedJSONData[skl_date].push(`${classEvent["room"]} - ${classEvent["subj_shortname"].split(" ")[0]}`);
 	})
 
 	res.json(formattedJSONData[date]);
