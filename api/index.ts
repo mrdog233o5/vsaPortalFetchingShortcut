@@ -30,9 +30,6 @@ app.get("/", (req, res) => {
 			formattedJSONData[skl_date].push(`${classEvent["room"]} - ${classEvent["subj_shortname"].split(" ").slice(0,1)}`);
 		})
 
-		var resJSON = {
-			classes: [],
-		};
 		res.json(formattedJSONData[date]);
 	});
 });
